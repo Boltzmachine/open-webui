@@ -28,6 +28,7 @@
 	import MessageInput from './MessageInput.svelte';
 	import FolderPlaceholder from './Placeholder/FolderPlaceholder.svelte';
 	import FolderTitle from './Placeholder/FolderTitle.svelte';
+	import Modal from '$lib/components/common/Modal.svelte';
 
 	const i18n = getContext('i18n');
 
@@ -59,6 +60,8 @@
 
 	export let toolServers = [];
 
+	export let show = true;
+
 	let models = [];
 	let selectedModelIdx = 0;
 
@@ -69,6 +72,26 @@
 	$: models = selectedModels.map((id) => $_models.find((m) => m.id === id));
 </script>
 
+<Modal bind:show>
+	<div class="grid grid-cols-2 dark:text-gray-100 px-5 pt-4 pb-4">
+		<div class="col-span-2">
+		<h1 class="text-lg font-medium self-center font-primary mb-2">
+			Please complete this short questionnaire before starting your chat.
+		</h1>
+		</div>
+		<div class="col-start-2">
+		<button
+			class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			aria-label={$i18n.t('Close modal')}
+			on:click={() => {
+				show = false;
+			}}
+		>
+			I have finished the questionnaire
+		</button>
+		</div>
+	</div>
+</Modal>
 <div class="m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">
 	{#if $temporaryChatEnabled}
 		<Tooltip
@@ -80,6 +103,27 @@
 				<EyeSlash strokeWidth="2.5" className="size-4" />{$i18n.t('Temporary Chat')}
 			</div>
 		</Tooltip>
+	{/if}
+	{#if $selectedFolder}
+		<div
+			class="mx-auto px-4 md:max-w-3xl md:px-6 font-primary min-h-62"
+			in:fade={{ duration: 200, delay: 200 }}
+		>
+			<FolderPlaceholder folder={$selectedFolder} />
+		</div>
+	{:else}
+		<div class="mx-auto max-w-2xl font-primary mb-12" in:fade={{ duration: 200, delay: 200 }}>
+			<div class="mx-5">
+				<Suggestions
+					suggestionPrompts={atSelectedModel?.info?.meta?.suggestion_prompts ??
+						models[selectedModelIdx]?.info?.meta?.suggestion_prompts ??
+						$config?.default_prompt_suggestions ??
+						[]}
+					inputValue={prompt}
+					{onSelect}
+				/>
+			</div>
+		</div>
 	{/if}
 
 	<div
@@ -231,25 +275,5 @@
 		</div>
 	</div>
 
-	{#if $selectedFolder}
-		<div
-			class="mx-auto px-4 md:max-w-3xl md:px-6 font-primary min-h-62"
-			in:fade={{ duration: 200, delay: 200 }}
-		>
-			<FolderPlaceholder folder={$selectedFolder} />
-		</div>
-	{:else}
-		<div class="mx-auto max-w-2xl font-primary mt-2" in:fade={{ duration: 200, delay: 200 }}>
-			<div class="mx-5">
-				<Suggestions
-					suggestionPrompts={atSelectedModel?.info?.meta?.suggestion_prompts ??
-						models[selectedModelIdx]?.info?.meta?.suggestion_prompts ??
-						$config?.default_prompt_suggestions ??
-						[]}
-					inputValue={prompt}
-					{onSelect}
-				/>
-			</div>
-		</div>
-	{/if}
+
 </div>
