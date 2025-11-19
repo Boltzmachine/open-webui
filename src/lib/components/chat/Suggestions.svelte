@@ -64,7 +64,7 @@
 	}
 </script>
 
-<div class="mb-1 flex gap-1 text-xs font-medium items-center text-gray-600 dark:text-gray-400">
+<div class="mb-1 flex gap-1 text-xl font-medium items-center text-gray-600 dark:text-gray-400">
 	{#if filteredPrompts.length > 0}
 		<Bolt />
 		{$i18n.t('Suggested')}
@@ -81,14 +81,14 @@
 	{/if}
 </div>
 
-<div class="h-40 w-full">
+<div class="h-60 w-full">
 	{#if filteredPrompts.length > 0}
 		<div role="list" class="flex flex-wrap max-h-40 scrollbar-none items-start {className}">
 			{#each filteredPrompts as prompt, idx (prompt.id || `${prompt.content}-${idx}`)}
 				<!-- svelte-ignore a11y-no-interactive-element-to-noninteractive-role -->
 				<button
 					role="listitem"
-					class="waterfall flex flex-col w-48 justify-between
+					class="waterfall flex flex-col w-64 justify-between
 				       px-3 py-2 rounded-xl bg-transparent hover:bg-black/5
 				       dark:hover:bg-white/5 transition group"
 					style="animation-delay: {idx * 60}ms"
@@ -97,11 +97,11 @@
 					<div class="flex flex-col text-left">
 						{#if prompt.title && prompt.title[0] !== ''}
 							<div
-								class="font-medium dark:text-gray-300 dark:group-hover:text-gray-200 transition line-clamp-1"
+								class="text-2xl font-medium dark:text-gray-300 dark:group-hover:text-gray-200 transition line-clamp-1"
 							>
 								{prompt.title[0]}
 							</div>
-							<div class="text-xs text-gray-600 dark:text-gray-400 font-normal line-clamp-1">
+							<div class="text-xl text-gray-600 dark:text-gray-400 font-normal line-clamp-1">
 								{prompt.title[1]}
 							</div>
 						{:else}
