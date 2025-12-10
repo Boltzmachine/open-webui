@@ -67,7 +67,7 @@
 <div class="mb-1 flex gap-1 text-xl font-medium items-center text-gray-600 dark:text-gray-400">
 	{#if filteredPrompts.length > 0}
 		<Bolt />
-		{$i18n.t('Suggested')}
+		{$i18n.t('Ask me About:')}
 	{:else}
 		<!-- Keine Vorschläge -->
 
