@@ -215,11 +215,7 @@
 								<div
 									class="mt-0.5 px-2 text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2 max-w-xl markdown"
 								>
-									{@html marked.parse(
-										sanitizeResponseContent(
-											models[selectedModelIdx]?.info?.meta?.description ?? ''
-										).replaceAll('\n', '<br>')
-									)}
+									A ChatBot for Cardiac Health
 								</div>
 							</Tooltip>
 
@@ -262,7 +258,7 @@
 					{toolServers}
 					{stopResponse}
 					{createMessagePair}
-					placeholder={$i18n.t('How can I help you today?')}
+					placeholder={$i18n.t('Would you like to discuss any health questions?')}
 					{onChange}
 					on:upload={(e) => {
 						dispatch('upload', e.detail);
