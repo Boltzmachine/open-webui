@@ -4,6 +4,7 @@
 
 	import { onMount, getContext, tick, createEventDispatcher } from 'svelte';
 	import { blur, fade } from 'svelte/transition';
+	import { getLanguages, changeLanguage } from '$lib/i18n';
 
 	const dispatch = createEventDispatcher();
 
@@ -31,6 +32,7 @@
 	import Modal from '$lib/components/common/Modal.svelte';
 
 	const i18n = getContext('i18n');
+	let lang = $i18n.language;
 
 	export let createMessagePair: Function;
 	export let stopResponse: Function;
@@ -72,7 +74,8 @@
 	$: models = selectedModels.map((id) => $_models.find((m) => m.id === id));
 </script>
 
-<Modal bind:show>
+
+<!-- <Modal bind:show>
 	<div class="grid grid-cols-2 dark:text-gray-100 px-5 pt-4 pb-4">
 		<div class="col-span-2">
 		<h1 class="text-lg font-medium self-center font-primary mb-2">
@@ -91,8 +94,42 @@
 		</button>
 		</div>
 	</div>
-</Modal>
+</Modal> -->
 <div class="m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">
+			<div class="flex w-full justify-center">
+				<div class="flex flex-col items-center">
+					<div class="self-center text-xs font-medium mb-1">{$i18n.t('Language')}</div>
+					<div class="flex items-center relative">
+						<div class="flex items-center border rounded overflow-hidden text-xs">
+							<button
+								class="px-3 py-1 focus:outline-none"
+								class:bg-blue-600={!lang.startsWith('es')}
+								class:text-white={!lang.startsWith('es')}
+								aria-pressed={!lang.startsWith('es')}
+								on:click={() => {
+									lang = 'en-US';
+									changeLanguage(lang);
+								}}
+							>
+								English
+							</button>
+							<button
+								class="px-3 py-1 focus:outline-none"
+								class:bg-blue-600={lang.startsWith('es')}
+								class:text-white={lang.startsWith('es')}
+								aria-pressed={lang.startsWith('es')}
+								on:click={() => {
+									lang = 'es-ES';
+									changeLanguage(lang);
+								}}
+							>
+								Español
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 	{#if $temporaryChatEnabled}
 		<Tooltip
 			content={$i18n.t("This chat won't appear in history and your messages will not be saved.")}
@@ -215,7 +252,7 @@
 								<div
 									class="mt-0.5 px-2 text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2 max-w-xl markdown"
 								>
-									A ChatBot for Cardiac Health
+									{$i18n.t('A ChatBot for Cardiac Health')}
 								</div>
 							</Tooltip>
 

@@ -99,16 +99,16 @@
 							<div
 								class="text-2xl font-medium dark:text-gray-300 dark:group-hover:text-gray-200 transition line-clamp-1"
 							>
-								{prompt.title[0]}
+								{$i18n.t(prompt.title[0])}
 							</div>
 							<div class="text-xl text-gray-600 dark:text-gray-400 font-normal line-clamp-1">
-								{prompt.title[1]}
+								{$i18n.t(prompt.title[1])}
 							</div>
 						{:else}
 							<div
 								class="font-medium dark:text-gray-300 dark:group-hover:text-gray-200 transition line-clamp-1"
 							>
-								{prompt.content}
+								{$i18n.t(prompt.content)}
 							</div>
 							<div class="text-xs text-gray-600 dark:text-gray-400 font-normal line-clamp-1">
 								{$i18n.t('Prompt')}
