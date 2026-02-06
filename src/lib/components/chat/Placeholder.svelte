@@ -75,26 +75,24 @@
 </script>
 
 
-<!-- <Modal bind:show>
+<Modal bind:show>
 	<div class="grid grid-cols-2 dark:text-gray-100 px-5 pt-4 pb-4">
-		<div class="col-span-2">
-		<h1 class="text-lg font-medium self-center font-primary mb-2">
-			Please complete this short questionnaire before starting your chat.
-		</h1>
+		<div class="col-span-2 pb-2">
+<p>{$i18n.t('CARDIO, provides general health and wellness information and is not medical advice. It should not replace professional clinical guidance. Seek direct clinical advice from a qualified healthcare provider before making any changes that could affect medical care, interact with chronic conditions, or interfere with medications. If you have a medical emergency, contact emergency services immediately.')}</p>
 		</div>
 		<div class="col-start-2">
 		<button
 			class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-			aria-label={$i18n.t('Close modal')}
+			aria-label={$i18n.t('Close')}
 			on:click={() => {
 				show = false;
 			}}
 		>
-			I have finished the questionnaire
+			Close
 		</button>
 		</div>
 	</div>
-</Modal> -->
+</Modal>
 <div class="m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">
 			<div class="flex w-full justify-center">
 				<div class="flex flex-col items-center">
